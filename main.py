@@ -7,10 +7,10 @@ import csv
 from load_dotenv import load_dotenv
 import os
 
-load_dotenv('envrion.env')
+load_dotenv('environ.env')
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] =os.getenv('SECRET_KEY')
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 Bootstrap(app)
 
 
@@ -50,7 +50,7 @@ def add_cafe():
         cafe_name=form.cafe.data
         cafe_location=form.location.data
         opening_time=form.opening_time.data
-        closing_time = form.closing_time
+        closing_time = form.closing_time.data
         coffee_rating = form.coffee_rating.data
         wifi_rating = form.wifi_rating.data
         power_rating = form.power_rating.data
@@ -59,7 +59,7 @@ def add_cafe():
 
         # Open our existing CSV file in append mode
         # Create a file object for this file
-        with open('cafe-data.csv', 'a') as file:
+        with open('cafe-data.csv', 'a', encoding='utf-8') as file:
             # Pass this file object to csv.writer()
             # and get a writer object
             writer_object = csv.writer(file)
@@ -79,7 +79,7 @@ def add_cafe():
 
 @app.route('/cafes')
 def cafes():
-    with open('cafe-data.csv', newline='') as csv_file:
+    with open('cafe-data.csv', newline='', encoding='utf-8') as csv_file:
         csv_data = csv.reader(csv_file, delimiter=',')
         list_of_rows = []
         for row in csv_data:
